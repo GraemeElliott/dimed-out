@@ -1,3 +1,21 @@
+body {
+  margin: 1rem;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Light theme styles */
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Dark theme styles */
+.dark-theme {
+  background-color: black;
+  color: white;
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -22,13 +40,7 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+
 
 h1 {
   font-size: 3.2em;
