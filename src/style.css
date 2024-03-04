@@ -1,20 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
 body {
-  margin: 1rem;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 /* Light theme styles */
-.light-theme {
+/* .light-theme {
   background-color: white;
   color: black;
-}
+} */
 
 /* Dark theme styles */
-.dark-theme {
-  background-color: black;
+/* .dark-theme {
+  background-color: #0a1a2b;
   color: white;
-}
+} */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -1,6 +1,6 @@
 <script></script>
 <template>
-  <div>
+  <div class="flex flex-row justify-center h-100">
     <h1>Homepage</h1>
   </div>
 </template>
