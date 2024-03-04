@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { toRef, ref } from 'vue';
-import url from '@/assets/main_images/do_logo_mobile.png';
 import { useDarkModeStore } from '@/store/store';
-import { useRoute } from 'vue-router';
 import { Menu, Close } from '@element-plus/icons-vue';
 import ThemeSwitch from './ThemeSwitch.vue';
 
 const darkModeStore = useDarkModeStore();
 const darkMode = toRef(darkModeStore, 'darkMode');
 
-const imageUrl = '@/assets/main_images/do_logo_mobile.png';
-
 const isMenuOpen = ref(false);
-const route = useRoute();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
