@@ -15,68 +15,107 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <nav>
+  <nav class="pt-4">
     <!-- Mobile Navbar -->
-    <div class="flex items-center justify-between px-4 py-3 md:hidden">
-      <div>
-        <img
-          class="object-contain w-36 pt-2"
-          :class="{ inverted: darkMode }"
-          lazy
-          src="../../assets/main_images/do_logo_mobile.png"
-        />
-        <!-- <el-image
+    <div>
+      <div class="flex items-center justify-between px-4 py-3 md:hidden">
+        <div class="relative">
+          <img
+            class="object-contain w-36"
+            :class="{ inverted: darkMode }"
+            lazy
+            src="../../assets/main_images/do_logo_mobile.png"
+          />
+          <!-- <el-image
           :src="imageUrl"
           class="object-fit w-36 pt-2"
           :class="{ inverted: darkMode }"
           lazy
         /> -->
+        </div>
+        <!-- Menu icon -->
+        <el-button
+          v-if="!isMenuOpen"
+          @click="toggleMenu"
+          link
+          class="text-white"
+        >
+          <el-icon
+            :style="{ fontSize: '1.5rem', color: darkMode ? 'white' : 'black' }"
+          >
+            <Menu />
+          </el-icon>
+        </el-button>
+        <!-- Close icon -->
+        <el-button
+          v-if="isMenuOpen"
+          @click="toggleMenu"
+          link
+          class="text-white"
+        >
+          <el-icon
+            :style="{ fontSize: '1.5rem', color: darkMode ? 'white' : 'black' }"
+          >
+            <Close />
+          </el-icon>
+        </el-button>
       </div>
-      <!-- Menu icon -->
-      <el-button v-if="!isMenuOpen" @click="toggleMenu" link class="text-white">
-        <el-icon
-          :style="{ fontSize: '1.5rem', color: darkMode ? 'white' : 'black' }"
-        >
-          <Menu />
-        </el-icon>
-      </el-button>
-      <!-- Close icon -->
-      <el-button v-if="isMenuOpen" @click="toggleMenu" link class="text-white">
-        <el-icon
-          :style="{ fontSize: '1.5rem', color: darkMode ? 'white' : 'black' }"
-        >
-          <Close />
-        </el-icon>
-      </el-button>
     </div>
     <!-- Mobile Menu (Dropdown) -->
     <div
-      :class="{ block: isMenuOpen, hidden: !isMenuOpen }"
-      class="md:hidden flex flex-col items-center"
+      :class="{
+        block: isMenuOpen,
+        hidden: !isMenuOpen,
+        'bg-white text-black': !darkMode,
+        'bg-gray-900 text-white': darkMode,
+      }"
+      class="md:hidden flex flex-col items-center absolute w-full"
     >
-      <router-link to="/" class="block px-3 py-2">Home</router-link>
-      <router-link to="/articles" class="block px-3 py-2">Articles</router-link>
-      <router-link to="/about" class="block px-3 py-2">About</router-link>
-      <router-link to="/contact" class="block px-3 py-2">Contact</router-link>
+      <router-link to="/" class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Home</router-link
+      >
+      <router-link
+        to="/articles"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Articles</router-link
+      >
+      <router-link
+        to="/about"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >About</router-link
+      >
+      <router-link
+        to="/contact"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Contact</router-link
+      >
       <!-- Theme switch -->
       <div class="flex items-center space-x-2">
-        <ThemeSwitch />
+        <ThemeSwitch class="mt-2" />
       </div>
     </div>
     <!-- Desktop and Tablet Navbar -->
-    <div class="hidden md:flex md:items-center md:justify-between px-4 py-3">
+    <div class="hidden md:flex md:items-center md:justify-between px-4 py-3 pt">
       <!-- Logo -->
       <img
-        class="object-contain w-48 pt-2"
+        class="object-contain w-48"
         :class="{ inverted: darkMode }"
         lazy
         src="../../assets/main_images/do_logo_tablet.png"
       />
       <div class="flex items-center space-x-10">
-        <router-link to="/">Home</router-link>
-        <router-link to="/articles">Articles</router-link>
-        <router-link to="/about">About</router-link>
-        <router-link to="/contact">Contact</router-link>
+        <router-link to="/" class="uppercase bebas-neue-regular"
+          >Home</router-link
+        >
+        <router-link to="/articles" class="uppercase bebas-neue-regular"
+          >Articles</router-link
+        >
+        <router-link to="/about" class="uppercase bebas-neue-regular"
+          >About</router-link
+        >
+        <router-link to="/contact" class="uppercase bebas-neue-regular"
+          >Contact</router-link
+        >
       </div>
       <!-- Navigation links -->
       <div class="flex items-center space-x-4">
@@ -89,5 +128,12 @@ const toggleMenu = () => {
 <style scoped>
 .inverted {
   filter: invert(1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.bebas-neue-regular {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 </style>

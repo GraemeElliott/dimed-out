@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useDarkModeStore } from '@/store/store.ts';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { Sunny, Moon } from '@element-plus/icons-vue';
 
 const darkModeStore = useDarkModeStore();
 const darkMode = ref(darkModeStore.darkMode);
+
+watchEffect(() => {
+  darkMode.value = darkModeStore.darkMode;
+});
 
 const toggleDarkMode = () => {
   darkModeStore.toggleDarkMode();
@@ -12,27 +16,16 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-  <el-switch
-    v-model="darkMode"
-    style="--el-switch-on-color: #2c2c2c; --el-switch-off-color: #f2f2f2"
-    size="large"
-    @change="toggleDarkMode"
-  >
-    <template #active-action>
-      <span class="custom-active-action">
-        <el-icon class="vertical-align: middle" style="color: black">
-          <Moon />
-        </el-icon>
-      </span>
-    </template>
-    <template #inactive-action>
-      <span class="custom-inactive-action">
-        <el-icon class="vertical-align: middle" style="color: black">
-          <Sunny />
-        </el-icon>
-      </span>
-    </template>
-  </el-switch>
+  <button @click="toggleDarkMode" class="toggle-theme-btn">
+    <el-icon :size="22">
+      <template v-if="darkMode">
+        <Moon />
+      </template>
+      <template v-else>
+        <Sunny />
+      </template>
+    </el-icon>
+  </button>
 </template>
 
 <style scoped></style>

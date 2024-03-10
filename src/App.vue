@@ -1,38 +1,34 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useDarkModeStore } from '@/store/store';
 import NavBar from './components/partials/NavBar.vue';
 import Footer from './components/partials/Footer.vue';
 
 const darkModeStore = useDarkModeStore();
 
-const darkMode = ref(false);
-
 onMounted(() => {
-  darkModeStore.initializeDarkMode();
-});
+  const handleResize = () => {
+    darkModeStore.initializeDarkMode(); // Re-initialize to force reactivity update
+  };
+  window.addEventListener('resize', handleResize);
 
-watch(darkModeStore, () => {
-  darkMode.value = darkModeStore.darkMode;
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+  });
 });
 </script>
 
 <template>
   <div
     :class="{
-      'bg-white text-black': !darkMode,
-      'bg-gray-900 text-white': darkMode,
+      'bg-white text-black': !darkModeStore.darkMode,
+      'bg-gray-900 text-white': darkModeStore.darkMode,
     }"
     class="min-h-screen"
   >
     <NavBar />
     <router-view />
-    <Footer
-      :class="{
-        'bg-white text-black': !darkMode,
-        'bg-gray-900 text-white': darkMode,
-      }"
-    />
+    <Footer />
   </div>
 </template>
 
