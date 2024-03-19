@@ -5,18 +5,18 @@ import url3 from '@/assets/homepage-images/thursday-full-collapse-1200x1200.jpeg
 </script>
 
 <template>
-  <div class="flex flex-col h-100 px-28">
+  <div class="flex flex-col h-100 items-center">
     <h1>Latest Articles</h1>
-    <div class="flex flex-row justify-center">
-      <div class="flex flex-row space-x-9">
+    <div class="flex flex-row">
+      <div class="flex flex-col">
         <div class="millencolin">
-          <el-image :src="url" class="object-fit w-96 h-auto" lazy />
+          <el-image :src="url" class="object-fit w-72 h-auto" lazy />
         </div>
         <div class="thegaslightanthem">
-          <el-image :src="url2" class="object-fit w-96 h-auto" lazy />
+          <el-image :src="url2" class="object-fit w-72 h-auto" lazy />
         </div>
         <div class="thursday">
-          <el-image :src="url3" class="object-fit w-96 h-auto" lazy />
+          <el-image :src="url3" class="object-fit w-72 h-auto" lazy />
         </div>
       </div>
     </div>
