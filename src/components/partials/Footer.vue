@@ -8,7 +8,7 @@ const darkMode = toRef(darkModeStore, 'darkMode');
 </script>
 
 <template>
-  <div class="flex flex-row fixed bottom-0 h-20 items-center ml-4">
+  <div class="flex flex-row relative bottom-0 h-20 items-center ml-4 mt-auto">
     <div class="logo">
       <el-image
         :src="url"
