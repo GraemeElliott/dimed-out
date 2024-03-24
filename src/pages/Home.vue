@@ -29,6 +29,17 @@ import { ref, onMounted } from 'vue';
 import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
 
+// Define an interface for your article
+interface Article {
+  _id: string;
+  title: string;
+  content?: string; // Use '?' for optional properties
+  imageUrl?: string;
+}
+
+// Then, in your component, specify the type of your data array
+const articles = ref<Article[]>([]);
+
 // Create an instance of the urlBuilder
 const builder = imageUrlBuilder(sanityClient);
 
