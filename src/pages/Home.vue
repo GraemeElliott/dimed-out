@@ -28,23 +28,16 @@ import url3 from '@/assets/homepage-images/thursday-full-collapse-1200x1200.jpeg
 import { ref, onMounted } from 'vue';
 import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
+import { Article } from '@/types';
 
-// Define an interface for your article
-interface Article {
-  _id: string;
-  title: string;
-  content?: string; // Use '?' for optional properties
-  imageUrl?: string;
-}
-
-// Then, in your component, specify the type of your data array
 const articles = ref<Article[]>([]);
 
 // Create an instance of the urlBuilder
 const builder = imageUrlBuilder(sanityClient);
 
 // Helper function to generate image URLs
-function urlFor(source) {
+function urlFor(source: { _ref: string }) {
+  // Adjust the type based on actual data structure
   return builder.image(source);
 }
 
@@ -69,8 +62,10 @@ const fetchArticles = () => {
     });
 };
 
-onMounted(() => {
-  fetchArticles();
+onMounted(async () => {
+  const query =
+    '*[_type == "article"]{ _id, title, "imageUrl": coverImage.asset->url }';
+  articles.value = await sanityClient.fetch(query);
 });
 </script>
 

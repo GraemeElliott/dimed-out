@@ -12,13 +12,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useArticlesStore } from '../store/store.ts';
-
-interface Article {
-  _id: string;
-  title: string;
-  content?: string; // Use '?' for optional properties
-  imageUrl?: string;
-}
+import { Article } from '@/types';
 
 const route = useRoute();
 const articlesStore = useArticlesStore();
