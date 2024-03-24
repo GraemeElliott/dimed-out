@@ -11,12 +11,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useArticlesStore } from '../store/store.ts';
-import { Article } from '@/types';
+import { useArticlesStore } from '../store/store';
+import { Article } from '@/types/types';
 
 const route = useRoute();
 const articlesStore = useArticlesStore();
-const article = ref(null);
+// Correctly apply the Article type to the ref, indicating it can be null or an Article.
+const article = ref<Article | null>(null);
 
 onMounted(async () => {
   article.value = await articlesStore.fetchArticleBySlug(route.params.slug);

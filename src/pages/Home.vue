@@ -28,7 +28,7 @@ import url3 from '@/assets/homepage-images/thursday-full-collapse-1200x1200.jpeg
 import { ref, onMounted } from 'vue';
 import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
-import { Article } from '@/types';
+import { Article, FetchedArticle } from '@/types/types';
 
 // Create an instance of the urlBuilder
 const builder = imageUrlBuilder(sanityClient);
@@ -45,10 +45,10 @@ const fetchArticles = () => {
   const query = '*[_type == "article"]{ _id, title, content, coverImage }';
   sanityClient
     .fetch(query)
-    .then((data) => {
-      articles.value = data.map((article) => {
-        // Assuming coverImage is the image field in your articles
-        // This adds a new property 'imageUrl' to each article object
+    .then((data: FetchedArticle[]) => {
+      // Explicitly type the data array as FetchedArticle[]
+      articles.value = data.map((article: FetchedArticle) => {
+        // Now TypeScript knows the structure of each article, including the dynamic imageUrl
         article.imageUrl = article.coverImage
           ? urlFor(article.coverImage).url()
           : '';
@@ -60,11 +60,7 @@ const fetchArticles = () => {
     });
 };
 
-onMounted(async () => {
-  const query =
-    '*[_type == "article"]{ _id, title, "imageUrl": coverImage.asset->url }';
-  articles.value = await sanityClient.fetch(query);
-});
+onMounted(fetchArticles);
 </script>
 
 <template>
