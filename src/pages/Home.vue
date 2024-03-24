@@ -24,7 +24,7 @@ import url3 from '@/assets/homepage-images/thursday-full-collapse-1200x1200.jpeg
 </template>
 <style scoped></style> -->
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
