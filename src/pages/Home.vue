@@ -30,8 +30,6 @@ import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
 import { Article } from '@/types';
 
-const articles = ref<Article[]>([]);
-
 // Create an instance of the urlBuilder
 const builder = imageUrlBuilder(sanityClient);
 
@@ -41,7 +39,7 @@ function urlFor(source: { _ref: string }) {
   return builder.image(source);
 }
 
-const articles = ref([]);
+const articles = ref<Article[]>([]);
 
 const fetchArticles = () => {
   const query = '*[_type == "article"]{ _id, title, content, coverImage }';
