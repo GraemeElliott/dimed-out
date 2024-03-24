@@ -1,7 +1,37 @@
-<script setup lang="ts"></script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { sanityClient } from '@/client.ts';
+
+const articles = ref([]);
+
+const fetchArticles = () => {
+  const query = '*[_type == "article"]{ _id, title, content }';
+  sanityClient
+    .fetch(query)
+    .then((data) => {
+      articles.value = data;
+    })
+    .catch((error) => {
+      console.error('Error fetching articles:', error);
+    });
+};
+
+onMounted(() => {
+  fetchArticles();
+});
+</script>
+
 <template>
-  <div class="flex flex-row justify-center h-100">
-    <h1>Articles Home</h1>
+  <div>
+    <h1>Articles</h1>
+    <ul>
+      <li v-for="article in articles" :key="article._id">
+        {{ article.title }}
+      </li>
+    </ul>
   </div>
 </template>
-<style scoped></style>
+
+<style scoped>
+/* Your styles here */
+</style>
