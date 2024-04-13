@@ -2,8 +2,8 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useArticleStore } from '../store/store';
-import { Article } from '@/types/types';
-import TextBlock from '@/components/article/TextBlock.vue';
+import { Article, TextBlock as TextBlockType } from '@/types/types';
+import TextBlockComponent from '@/components/article/TextBlock.vue';
 import ImageBlock from '@/components/article/Image.vue';
 import Quote from '@/components/article/Quote.vue';
 import YouTubeContainer from '@/components/article/YouTubeContainer.vue';
@@ -38,6 +38,17 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
+
+// onMounted(async () => {
+//   try {
+//     article.value = await articlesStore.fetchArticleBySlug(
+//       route.params.slug as string
+//     );
+//     console.log('Article content:', article.value.content); // Log to inspect the structure
+//   } finally {
+//     isLoading.value = false;
+//   }
+// });
 </script>
 
 <template>
@@ -74,7 +85,9 @@ onMounted(async () => {
           :class="contentItem.cssClass"
           class="text-block-component"
         >
-          <TextBlock :block="contentItem" />
+          <TextBlockComponent
+            :block="contentItem as unknown as unknown as unknown as TextBlockType"
+          />
         </div>
         <div
           v-else-if="contentItem._type === 'heading'"
@@ -127,7 +140,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.text-block-component >>> p {
+.text-block-component :deep() p {
   margin-bottom: 1.25rem; /* Equivalent to mb-5 */
 }
 </style>
