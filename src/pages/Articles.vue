@@ -11,7 +11,7 @@ const articles = ref<Article[]>([]);
 
 const fetchArticles = () => {
   const query =
-    '*[_type == "article"]{ _id, title, "articleImage": articleImage }';
+    '*[_type == "article"]{ _id, title, "articleImage": articleImage, slug }';
   sanityClient
     .fetch(query)
     .then((data: Article[]) => {
@@ -40,7 +40,16 @@ onMounted(fetchArticles);
     <h1>Articles</h1>
     <ul>
       <li v-for="article in articles" :key="article._id">
-        <!-- Display the image using the imageUrl property -->
+        <!-- Corrected the route name to 'articleDetail' -->
+        <router-link
+          :to="{
+            name: 'articleDetail',
+            params: { slug: article.slug.current },
+          }"
+        >
+          {{ article.title }}
+          <!-- It's a good practice to show article title instead of slug -->
+        </router-link>
         <img
           v-if="article.articleImage"
           :src="article.articleImage"
