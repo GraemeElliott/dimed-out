@@ -1,20 +1,93 @@
 import { ref } from 'vue';
 
-// Define and export the interface for your article
+interface BaseBlock {
+  _key: string;
+  _type: string;
+}
+
+interface TextBlockWrapper {
+  _key: string;
+  text: TextBlock[];
+  cssClass?: string;
+}
+
+export interface MarkedText {
+  _key: string;
+  _type: 'span';
+  text: string;
+  marks?: string[];
+  cssClass?: string;
+}
+
+export interface ArticleHeadingBlock {
+  _key: string;
+  _type: 'heading';
+  heading: string;
+  cssClass?: string;
+}
+
+export interface TextBlock extends BaseBlock {
+  _type: 'block';
+  style?: string;
+  marks?: string[];
+  listType?: string;
+  children: MarkedText[];
+  cssClass?: string;
+  text: {
+    _key: string;
+    markDefs: any[];
+    children: MarkedText[];
+    _type: 'block';
+    style?: string;
+  }[];
+}
+
+export interface Image extends BaseBlock {
+  _type: 'image';
+  asset: {
+    _ref: string;
+  };
+  cssClass?: string;
+  alt?: string;
+  caption?: string;
+  url: string;
+}
+
+export interface Quote extends BaseBlock {
+  _type: 'quote';
+  quote: string;
+  cssClass?: string;
+  quoteCaption: string;
+}
+
+export interface YouTubeVideoID extends BaseBlock {
+  _type: 'youtubeID';
+  videoID: string;
+  cssClass?: string;
+  id: string;
+}
+
+export type ArticleContentItem =
+  | TextBlockWrapper
+  | Image
+  | Quote
+  | YouTubeVideoID
+  | ArticleHeadingBlock;
+
 export interface Article {
   _id: string;
+  slug: { current: string };
   title: string;
-  content?: string; // Use '?' for optional properties
-  imageUrl?: string;
+  content: ArticleContentItem[];
+  summaryText?: string;
+  noteFromTheAuthor?: TextBlock[];
+  sources?: TextBlock[];
+  titleCssClass?: string;
+  summaryTextCssClass?: string;
+  coverImageStyle?: string;
+  coverImage?: string;
+  coverImageCredit?: string;
+  pdfUrl?: string;
 }
 
-// If you need to use the articles ref in the same file, you can keep this
-// But if it's only for example purposes and used elsewhere, it should be in those specific component files
 export const articles = ref<Article[]>([]);
-
-export interface FetchedArticle extends Article {
-  coverImage?: {
-    _ref: string; // Adjust based on your actual data structure
-  };
-  imageUrl?: string; // This property is added dynamically
-}

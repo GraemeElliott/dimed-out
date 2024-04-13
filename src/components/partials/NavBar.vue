@@ -15,7 +15,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <nav class="pt-4">
+  <nav class="pt-2 pb-2">
     <!-- Mobile Navbar -->
     <div>
       <div class="flex items-center justify-between px-4 py-3 md:hidden">
@@ -62,39 +62,39 @@ const toggleMenu = () => {
       </div>
     </div>
     <!-- Mobile Menu (Dropdown) -->
-<div
-  :class="{
-    'block': isMenuOpen,
-    'hidden': !isMenuOpen,
-    'bg-white text-black': !darkMode,
-    'bg-gray-900 text-white': darkMode,
-  }"
-  class="md:hidden flex flex-col items-center absolute w-full z-50"
-  style="top: 4rem; left: 0;"
->
-  <router-link to="/" class="block px-3 py-2 uppercase bebas-neue-regular"
-    >Home</router-link
-  >
-  <router-link
-    to="/articles"
-    class="block px-3 py-2 uppercase bebas-neue-regular"
-    >Articles</router-link
-  >
-  <router-link
-    to="/about"
-    class="block px-3 py-2 uppercase bebas-neue-regular"
-    >About</router-link
-  >
-  <router-link
-    to="/contact"
-    class="block px-3 py-2 uppercase bebas-neue-regular"
-    >Contact</router-link
-  >
-  <!-- Theme switch -->
-  <div class="flex items-center space-x-2">
-    <ThemeSwitch class="mt-2 pb-2" />
-  </div>
-</div>
+    <div
+      :class="{
+        block: isMenuOpen,
+        hidden: !isMenuOpen,
+        'bg-white text-black': !darkMode,
+        'bg-gray-900 text-white': darkMode,
+      }"
+      class="md:hidden flex flex-col items-center absolute w-full z-50"
+      style="top: 4rem; left: 0"
+    >
+      <router-link to="/" class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Home</router-link
+      >
+      <router-link
+        to="/articles"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Articles</router-link
+      >
+      <router-link
+        to="/about"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >About</router-link
+      >
+      <router-link
+        to="/contact"
+        class="block px-3 py-2 uppercase bebas-neue-regular"
+        >Contact</router-link
+      >
+      <!-- Theme switch -->
+      <div class="flex items-center space-x-2">
+        <ThemeSwitch class="mt-2 pb-2" />
+      </div>
+    </div>
     <!-- Desktop and Tablet Navbar -->
     <div class="hidden md:flex md:items-center md:justify-between px-4 py-3 pt">
       <!-- Logo -->
@@ -127,8 +127,6 @@ const toggleMenu = () => {
 </template>
 
 <style scoped>
-
-
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .inverted {
   filter: invert(1);

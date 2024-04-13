@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import { sanityClient } from '@/client';
+import { Article } from '@/types/types';
 
 export const useDarkModeStore = defineStore('darkMode', {
   state: () => ({
@@ -24,15 +25,32 @@ export const useDarkModeStore = defineStore('darkMode', {
   },
 });
 
-export const useArticlesStore = defineStore('articles', {
+export const useArticleStore = defineStore('article', {
   state: () => ({
-    articles: [],
+    articles: [] as Article[],
   }),
   actions: {
-    async fetchArticleBySlug(slug: any) {
-      const query = `*[_type == "article" && slug.current == $slug][0]`;
-      const params = { slug };
-      return await sanityClient.fetch(query, params);
+    async fetchArticleBySlug(slug: string): Promise<Article | null> {
+      const existingArticle = this.articles.find(
+        (a) => a.slug.current === slug
+      );
+      if (existingArticle) {
+        return existingArticle;
+      } else {
+        const query = `*[_type == "article" && slug.current == $slug][0]{
+          ...,
+          "pdfUrl": pdfFile.asset->url
+        }`;
+        const params = { slug };
+        const fetchedArticle: Article | null = await sanityClient.fetch(
+          query,
+          params
+        );
+        if (fetchedArticle) {
+          this.articles.push(fetchedArticle);
+        }
+        return fetchedArticle;
+      }
     },
   },
 });

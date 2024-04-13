@@ -4,8 +4,6 @@ import NavBar from './components/partials/NavBar.vue';
 import Footer from './components/partials/Footer.vue';
 
 const darkModeStore = useDarkModeStore();
-
-
 </script>
 
 <template>
@@ -17,7 +15,9 @@ const darkModeStore = useDarkModeStore();
     class="flex flex-col min-h-screen"
   >
     <NavBar />
-    <router-view class="flex-grow"/>
+    <div class="">
+      <router-view class="flex-grow" />
+    </div>
     <Footer />
   </div>
 </template>
