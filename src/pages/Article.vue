@@ -142,9 +142,14 @@ onMounted(async () => {
         <Sources :sourceBlocks="article.sources" />
       </div>
       <div v-if="article.pdfUrl">
-        <a :href="article.pdfUrl" target="_blank" download="Download PDF"
-          >Download PDF</a
+        <a
+          :href="article.pdfUrl"
+          target="_blank"
+          download
+          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
+          Download PDF
+        </a>
       </div>
     </Container>
   </div>
