@@ -16,6 +16,7 @@ const videoUrl = computed(() => {
     <iframe
       class="absolute top-0 left-0 w-full h-full"
       :src="videoUrl"
+      loading="lazy"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

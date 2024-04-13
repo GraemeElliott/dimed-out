@@ -16,17 +16,27 @@ import Spinner from '@/components/partials/Spinner.vue';
 import ImageCredit from '@/components/article/ImageCredit.vue';
 import FullScreenImage from '@/components/article/FullScreenImage.vue';
 import Container from '@/components/partials/Container.vue';
+import moment from 'moment';
 
 const route = useRoute();
 const articlesStore = useArticleStore();
 const article = ref<Article | null>(null);
 const builder = imageUrlBuilder(sanityClient);
+
 const coverImageUrl = computed(() => {
   if (article.value && article.value.coverImage) {
     return builder.image(article.value.coverImage).url();
   }
   return '';
 });
+
+const publishedDate = computed(() => {
+  if (article.value && article.value.publishedAt) {
+    return moment(article.value.publishedAt).format('ddd Do MMMM YYYY');
+  }
+  return '';
+});
+
 const isLoading = ref(true);
 
 onMounted(async () => {
@@ -65,10 +75,10 @@ onMounted(async () => {
       <ImageCredit :credit="article.coverImageCredit" class="mr-2" />
     </div>
     <Container>
-      <div class="mb-8">
+      <div class="mb-10">
         <h1
           :class="article.titleCssClass"
-          class="text-3xl font-extrabold text-center mb-8 xl:text-6xl"
+          class="text-3xl font-bold text-center mb-8 xl:text-6xl"
         >
           {{ article.title }}
         </h1>
@@ -76,6 +86,14 @@ onMounted(async () => {
           class="text-center text-gray-400 font-style: italic leading-7 mx-1 xl:mx-40 text-lg"
         >
           {{ article.summaryText }}
+        </p>
+        <p class="text-center my-4 text-sm">
+          By
+          <span class="text-emerald-600 font-bold">{{
+            article.authorName
+          }}</span>
+          |
+          {{ publishedDate }}
         </p>
       </div>
       <div v-for="contentItem in article.content" :key="contentItem._key">
@@ -110,11 +128,7 @@ onMounted(async () => {
         >
           <Quote :block="contentItem" />
         </div>
-        <div
-          v-else-if="contentItem._type === 'youtubeID'"
-          :class="contentItem.cssClass"
-          class="mb-8"
-        >
+        <div v-else-if="contentItem._type === 'youtubeID'" class="my-8">
           <YouTubeContainer :block="contentItem" />
         </div>
       </div>
@@ -124,7 +138,7 @@ onMounted(async () => {
           class="text-block-component"
         />
       </div>
-      <div v-if="article.sources" class="text-block-component">
+      <div v-if="article.sources" class="text-block-component-sources">
         <Sources :sourceBlocks="article.sources" />
       </div>
       <div v-if="article.pdfUrl">
@@ -142,5 +156,12 @@ onMounted(async () => {
 <style scoped>
 .text-block-component :deep() p {
   margin-bottom: 1.25rem; /* Equivalent to mb-5 */
+}
+.text-block-component-sources :deep() p {
+  margin-bottom: 1.25rem; /* Equivalent to mb-5 */
+}
+.text-block-component-sources :deep() li {
+  margin-bottom: 0.25rem;
+  font-size: small;
 }
 </style>

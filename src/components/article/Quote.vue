@@ -10,12 +10,8 @@ const { block } = defineProps<{
   <div class="w-full md:w-1/2 my-4">
     <blockquote class="font-style = italic font-bold text-2xl">
       "{{ block.quote }}"
+      <span>— {{ block.quoteCaption }}</span>
     </blockquote>
-    <figcaption
-      class="text-sm text-center text-gray-400 font-style: italic mt-2"
-    >
-      {{ block.quoteCaption }}
-    </figcaption>
   </div>
 </template>
 

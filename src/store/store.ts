@@ -39,6 +39,7 @@ export const useArticleStore = defineStore('article', {
       } else {
         const query = `*[_type == "article" && slug.current == $slug][0]{
           ...,
+          "authorName": author->name,
           "pdfUrl": pdfFile.asset->url
         }`;
         const params = { slug };

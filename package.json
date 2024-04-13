@@ -16,6 +16,7 @@
     "autoprefixer": "^10.4.18",
     "element-plus": "^2.5.5",
     "js-cookie": "^3.0.5",
+    "moment": "^2.30.1",
     "pinia": "^2.1.7",
     "postcss": "^8.4.35",
     "sanity-blocks-vue-component": "^1.0.1",

@@ -22,4 +22,4 @@ const darkModeStore = useDarkModeStore();
   </div>
 </template>
 
-<style scoped></style>
+<style></style>

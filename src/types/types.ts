@@ -66,7 +66,6 @@ export interface Quote extends BaseBlock {
 export interface YouTubeVideoID extends BaseBlock {
   _type: 'youtubeID';
   videoID: string; // YouTube video identifier
-  cssClass?: string;
   id: string; // Additional identifier, if needed
 }
 
@@ -80,6 +79,7 @@ export type ArticleContentItem =
 export interface Article {
   _id: string;
   slug: { current: string };
+  authorName: string;
   title: string;
   content: ArticleContentItem[];
   summaryText?: string;
@@ -92,6 +92,8 @@ export interface Article {
   coverImage?: string;
   coverImageCredit?: string;
   pdfUrl?: string;
+  publishedAt: string;
+  updatedAt: string;
 }
 
 export const articles = ref<Article[]>([]);

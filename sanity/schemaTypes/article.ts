@@ -31,6 +31,7 @@ export default defineType({
       type: 'reference',
       to: {type: 'author'},
     }),
+
     defineField({
       name: 'articleImage',
       title: 'Article thumbnail image',
@@ -240,12 +241,6 @@ export default defineType({
               type: 'string', // 'text' type for plain text, multiline input
               description: 'Youtube Video ID',
             },
-            {
-              name: 'cssClass',
-              title: 'Custom CSS Classes',
-              type: 'string',
-              description: 'Optional CSS class to apply to this quote block',
-            },
           ],
         },
       ],
@@ -277,12 +272,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
+      authorName: 'author.name',
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const {authorName} = selection
+      return {...selection, subtitle: authorName && `by ${authorName}`}
     },
   },
 })
