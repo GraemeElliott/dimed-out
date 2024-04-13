@@ -28,7 +28,7 @@ import url3 from '@/assets/homepage-images/thursday-full-collapse-1200x1200.jpeg
 import { ref, onMounted } from 'vue';
 import { sanityClient } from '@/client.ts';
 import imageUrlBuilder from '@sanity/image-url';
-import { Article, FetchedArticle } from '@/types/types';
+import { Article } from '@/types/types';
 
 // Create an instance of the urlBuilder
 const builder = imageUrlBuilder(sanityClient);
@@ -40,8 +40,8 @@ const fetchArticles = () => {
     '*[_type == "article"]{ _id, title, "articleImage": articleImage }';
   sanityClient
     .fetch(query)
-    .then((data: FetchedArticle[]) => {
-      articles.value = data.map((article: FetchedArticle) => {
+    .then((data: Article[]) => {
+      articles.value = data.map((article: Article) => {
         const articleImageUrl =
           article.articleImage && typeof article.articleImage === 'object'
             ? builder.image(article.articleImage).url()

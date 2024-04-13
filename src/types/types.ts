@@ -85,6 +85,7 @@ export interface Article {
   titleCssClass?: string;
   summaryTextCssClass?: string;
   coverImageStyle?: string;
+  articleImage?: string;
   coverImage?: string;
   coverImageCredit?: string;
   pdfUrl?: string;
