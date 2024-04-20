@@ -26,6 +26,13 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured',
+      type: 'boolean',
+      description: 'Indicates if the article is featured. Default is false.',
+      initialValue: false, // Sets the default value to false
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useArticleStore } from '../store/store';
+import { useArticleStore } from '@/store/store';
 import { Article, TextBlock as TextBlockType } from '@/types/types';
 import TextBlockComponent from '@/components/article/TextBlock.vue';
 import ImageBlock from '@/components/article/Image.vue';
@@ -40,6 +40,7 @@ const publishedDate = computed(() => {
 const isLoading = ref(true);
 
 onMounted(async () => {
+  window.scrollTo(0, 0);
   try {
     article.value = await articlesStore.fetchArticleBySlug(
       route.params.slug as string
@@ -48,22 +49,14 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
-
-// onMounted(async () => {
-//   try {
-//     article.value = await articlesStore.fetchArticleBySlug(
-//       route.params.slug as string
-//     );
-//     console.log('Article content:', article.value.content); // Log to inspect the structure
-//   } finally {
-//     isLoading.value = false;
-//   }
-// });
 </script>
 
 <template>
   <div v-if="isLoading">
-    <Spinner :isLoading="isLoading" />
+    <Spinner
+      :isLoading="isLoading"
+      class="flex translate-y-36 lg:translate-y-80"
+    />
   </div>
   <div v-else-if="article" class="article-container">
     <div class="mb-8">
@@ -78,12 +71,12 @@ onMounted(async () => {
       <div class="mb-10">
         <h1
           :class="article.titleCssClass"
-          class="text-3xl font-bold text-center mb-8 xl:text-6xl"
+          class="text-4xl font-bold text-center mb-8 xl:text-7xl"
         >
           {{ article.title }}
         </h1>
         <p
-          class="text-center text-gray-400 font-style: italic leading-7 mx-1 xl:mx-40 text-lg"
+          class="text-center font-style: italic leading-7 mx-1 mb-8 xl:mx-40 text-lg"
         >
           {{ article.summaryText }}
         </p>

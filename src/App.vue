@@ -15,7 +15,7 @@ const darkModeStore = useDarkModeStore();
     class="flex flex-col min-h-screen"
   >
     <NavBar />
-    <div class="">
+    <div>
       <router-view class="flex-grow" />
     </div>
     <Footer />

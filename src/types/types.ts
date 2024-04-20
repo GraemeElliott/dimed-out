@@ -88,12 +88,13 @@ export interface Article {
   titleCssClass?: string;
   summaryTextCssClass?: string;
   coverImageStyle?: string;
-  articleImage?: string;
+  articleImage?: string | null;
   coverImage?: string;
   coverImageCredit?: string;
   pdfUrl?: string;
   publishedAt: string;
   updatedAt: string;
+  featured: boolean;
 }
 
 export const articles = ref<Article[]>([]);

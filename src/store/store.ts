@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import { sanityClient } from '@/client';
+import imageUrlBuilder from '@sanity/image-url';
 import { Article } from '@/types/types';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 export const useDarkModeStore = defineStore('darkMode', {
   state: () => ({
@@ -30,12 +32,26 @@ export const useArticleStore = defineStore('article', {
     articles: [] as Article[],
   }),
   actions: {
-    async fetchArticleBySlug(slug: string): Promise<Article | null> {
-      const existingArticle = this.articles.find(
-        (a) => a.slug.current === slug
+    async fetchArticles() {
+      const query = `*[_type == "article"] | order(publishedAt desc){
+        ...,
+        "authorName": author->name,
+        "pdfUrl": pdfFile.asset->url
+      }`;
+      this.articles = await sanityClient.fetch(query).then((articles) =>
+        articles.map((article: { articleImage: SanityImageSource }) => ({
+          ...article,
+          loading: false, // Initialize as false, set true when loading details
+          articleImage: article.articleImage
+            ? imageUrlBuilder(sanityClient).image(article.articleImage).url()
+            : null,
+        }))
       );
-      if (existingArticle) {
-        return existingArticle;
+    },
+    async fetchArticleBySlug(slug: string): Promise<Article | null> {
+      let article = this.articles.find((a) => a.slug.current === slug);
+      if (article) {
+        return article;
       } else {
         const query = `*[_type == "article" && slug.current == $slug][0]{
           ...,
@@ -43,14 +59,16 @@ export const useArticleStore = defineStore('article', {
           "pdfUrl": pdfFile.asset->url
         }`;
         const params = { slug };
-        const fetchedArticle: Article | null = await sanityClient.fetch(
+        const fetchedArticle: Article | undefined = await sanityClient.fetch(
           query,
           params
         );
         if (fetchedArticle) {
           this.articles.push(fetchedArticle);
+          return fetchedArticle;
+        } else {
+          return null; // Explicitly return null if no article is fetched
         }
-        return fetchedArticle;
       }
     },
   },

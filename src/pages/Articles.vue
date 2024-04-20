@@ -1,66 +1,122 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { sanityClient } from '@/client.ts';
-import imageUrlBuilder from '@sanity/image-url';
-import { Article } from '@/types/types';
+import { ref, computed, onMounted, watchEffect, Ref } from 'vue';
+import { useArticleStore } from '@/store/store';
+import ArticleCard from '@/components/articles/ArticleCard.vue';
+import Container from '@/components/partials/Container.vue';
+import Spinner from '@/components/partials/Spinner.vue';
 
-// Create an instance of the urlBuilder
-const builder = imageUrlBuilder(sanityClient);
+const articleStore = useArticleStore();
+const isLoading = ref(true);
+const isLoadingScroll = ref(false);
+const numLoaded = ref(8);
 
-const articles = ref<Article[]>([]);
+const displayedArticles = computed(() =>
+  articleStore.articles.slice(0, numLoaded.value)
+);
 
-const fetchArticles = () => {
-  const query =
-    '*[_type == "article"]{ _id, title, "articleImage": articleImage, slug }';
-  sanityClient
-    .fetch(query)
-    .then((data: Article[]) => {
-      articles.value = data.map((article: Article) => {
-        const articleImageUrl =
-          article.articleImage && typeof article.articleImage === 'object'
-            ? builder.image(article.articleImage).url()
-            : article.articleImage;
-        console.log(articleImageUrl);
+const observer: Ref<IntersectionObserver | null> = ref(null);
+const scrollRef = ref<HTMLElement | null>(null);
 
-        // Type assertion here to align with Article interface
-        return {
-          ...article,
-          articleImage: articleImageUrl,
-        } as Article;
-      });
-    })
-    .catch((error) => console.error('Error fetching articles:', error));
+onMounted(async () => {
+  await articleStore.fetchArticles();
+  isLoadingScroll.value = false;
+  isLoading.value = false;
+
+  observer.value = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && !isLoadingScroll.value) {
+        loadMore();
+      }
+    },
+    {
+      root: null,
+      threshold: 0.5,
+    }
+  );
+
+  watchEffect(() => {
+    if (scrollRef.value) {
+      observer.value?.observe(scrollRef.value);
+    }
+  });
+});
+
+const loadMore = () => {
+  if (articleStore.articles.length > numLoaded.value) {
+    isLoadingScroll.value = true;
+    setTimeout(() => {
+      numLoaded.value += 6;
+      isLoadingScroll.value = false;
+    }, 2000);
+  } else {
+    if (scrollRef.value) observer.value?.unobserve(scrollRef.value);
+  }
 };
-
-onMounted(fetchArticles);
 </script>
 
 <template>
-  <div>
-    <h1>Articles</h1>
-    <ul>
-      <li v-for="article in articles" :key="article._id">
-        <!-- Corrected the route name to 'articleDetail' -->
-        <router-link
-          :to="{
-            name: 'articleDetail',
-            params: { slug: article.slug.current },
-          }"
-        >
-          {{ article.title }}
-          <!-- It's a good practice to show article title instead of slug -->
-        </router-link>
-        <img
-          v-if="article.articleImage"
-          :src="article.articleImage"
-          alt="Article Cover"
-          class="w-52"
+  <Container class="md:mt-8">
+    <div>
+      <div v-if="isLoading">
+        <Spinner
+          :isLoading="isLoading"
+          class="flex translate-y-36 lg:translate-y-80"
         />
-      </li>
-    </ul>
-  </div>
+      </div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <ArticleCard
+          v-for="article in displayedArticles"
+          :key="article.slug.current"
+          :article="article"
+        />
+        <div
+          ref="scrollRef"
+          class="loading-trigger"
+          v-show="!isLoadingScroll"
+        ></div>
+      </div>
+    </div>
+    <div v-if="isLoadingScroll" class="text-center font-bold mt-2">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </Container>
 </template>
 
 <style scoped>
-/* Your styles here */
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  background-color: #333;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 4px;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+@keyframes dotFlashing {
+  0% {
+    background-color: #333;
+  }
+  50%,
+  100% {
+    background-color: #ccc;
+  }
+}
 </style>

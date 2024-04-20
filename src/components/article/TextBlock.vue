@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { TextBlock } from '@/types/types';
 import { PortableText } from '@portabletext/vue';
 import { serializers } from '@/types/serializers';
