@@ -5,7 +5,7 @@ import { serializers } from '@/types/serializers';
 
 defineProps({
   sourceBlocks: {
-    type: Array as PropType<any[]>, // Update to reflect the structure if known, else use 'any'
+    type: Array as PropType<any[]>,
     default: () => [],
   },
 });
@@ -18,9 +18,4 @@ defineProps({
   </div>
 </template>
 
-<style scoped>
-.block-element {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-</style>
+<style scoped></style>

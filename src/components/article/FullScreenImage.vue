@@ -1,3 +1,13 @@
+<script setup lang="ts">
+interface Props {
+  imageUrl: string;
+  alt: string;
+  imageClass?: string;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <div class="h-screen">
     <img
@@ -9,15 +19,5 @@
     />
   </div>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  imageUrl: string;
-  alt: string;
-  imageClass?: string;
-}
-
-defineProps<Props>();
-</script>
 
 <style scoped></style>

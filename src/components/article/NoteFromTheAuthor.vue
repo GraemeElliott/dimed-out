@@ -5,7 +5,7 @@ import { serializers } from '@/types/serializers';
 
 defineProps({
   noteBlock: {
-    type: Array as PropType<any[]>, // Update to reflect the structure if known, else use 'any'
+    type: Array as PropType<any[]>,
     default: () => [],
   },
 });

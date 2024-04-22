@@ -7,19 +7,16 @@ import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 export const useDarkModeStore = defineStore('darkMode', {
   state: () => ({
-    darkMode: Cookies.get('darkMode') === 'true', // Initialize state based on cookie value
-    initialized: false, // Track whether the store has been initialized
+    darkMode: Cookies.get('darkMode') === 'true',
+    initialized: false,
   }),
   actions: {
     initializeDarkMode() {
-      // Set the darkMode state based on the value retrieved from cookies
       this.darkMode = Cookies.get('darkMode') === 'true';
-      this.initialized = true; // Mark the store as initialized
+      this.initialized = true;
     },
     toggleDarkMode() {
-      // Toggle the darkMode state
       this.darkMode = !this.darkMode;
-      // Update the cookie with the new value
       Cookies.set('darkMode', this.darkMode ? 'true' : 'false', {
         expires: 365,
       });
@@ -41,7 +38,7 @@ export const useArticleStore = defineStore('article', {
       this.articles = await sanityClient.fetch(query).then((articles) =>
         articles.map((article: { articleImage: SanityImageSource }) => ({
           ...article,
-          loading: false, // Initialize as false, set true when loading details
+          loading: false,
           articleImage: article.articleImage
             ? imageUrlBuilder(sanityClient).image(article.articleImage).url()
             : null,
@@ -67,7 +64,7 @@ export const useArticleStore = defineStore('article', {
           this.articles.push(fetchedArticle);
           return fetchedArticle;
         } else {
-          return null; // Explicitly return null if no article is fetched
+          return null;
         }
       }
     },

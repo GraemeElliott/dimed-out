@@ -71,7 +71,7 @@ onMounted(async () => {
       <div class="mb-10">
         <h1
           :class="article.titleCssClass"
-          class="text-4xl font-bold text-center mb-8 xl:text-7xl"
+          class="text-3xl font-bold text-center mb-8 xl:text-5xl"
         >
           {{ article.title }}
         </h1>
@@ -90,7 +90,6 @@ onMounted(async () => {
         </p>
       </div>
       <div v-for="contentItem in article.content" :key="contentItem._key">
-        <!-- Check for and iterate over text blocks -->
         <div
           v-if="'text' in contentItem"
           :class="contentItem.cssClass"
@@ -153,10 +152,10 @@ onMounted(async () => {
 
 <style scoped>
 .text-block-component :deep() p {
-  margin-bottom: 1.25rem; /* Equivalent to mb-5 */
+  margin-bottom: 1.25rem;
 }
 .text-block-component-sources :deep() p {
-  margin-bottom: 1.25rem; /* Equivalent to mb-5 */
+  margin-bottom: 1.25rem;
 }
 .text-block-component-sources :deep() li {
   margin-bottom: 0.25rem;

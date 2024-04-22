@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Quote } from '@/types/types'; // Adjust the path to where your types are defined
+import type { Quote } from '@/types/types';
 
 const { block } = defineProps<{
   block: Quote;
@@ -15,6 +15,4 @@ const { block } = defineProps<{
   </div>
 </template>
 
-<style scoped>
-/* Additional styling can go here */
-</style>
+<style scoped></style>

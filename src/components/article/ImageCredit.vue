@@ -10,6 +10,4 @@ defineProps({
   <h2 class="text-right font-bold text-xs">Credit - {{ credit }}</h2>
 </template>
 
-<style scoped>
-/* You can add styles specific to the credit line here */
-</style>
+<style scoped></style>

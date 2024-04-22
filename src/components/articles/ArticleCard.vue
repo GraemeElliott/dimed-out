@@ -37,7 +37,6 @@ const props = defineProps({
           </div>
         </div>
       </div>
-      <!-- Title displayed below the image on small screens -->
       <div class="mt-3 h-15 sm:hidden">
         <p class="font-bold text-xl ml-4">
           {{ article.title }}
@@ -60,10 +59,5 @@ const props = defineProps({
 
 .overlay:hover p {
   opacity: 1;
-}
-
-.text-center {
-  text-align: center;
-  overflow: hidden;
 }
 </style>

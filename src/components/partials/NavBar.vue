@@ -15,7 +15,7 @@ const toggleMenu = () => {
 };
 
 const closeMenu = () => {
-  isMenuOpen.value = false; // Always close the menu
+  isMenuOpen.value = false;
   document.body.style.overflow = '';
 };
 </script>
@@ -37,7 +37,7 @@ const closeMenu = () => {
         </div>
         <!-- Menu icon -->
         <div class="flex">
-          <ThemeSwitch class="mt-1 mr-2" />
+          <ThemeSwitch class="mt-1" />
           <el-button
             v-if="!isMenuOpen"
             @click="toggleMenu"
@@ -98,14 +98,6 @@ const closeMenu = () => {
         <span :class="{ 'active-link': isActive }">Articles</span>
       </router-link>
       <router-link
-        to="/about"
-        class="block px-3 py-2 uppercase ubuntu-large"
-        @click="toggleMenu"
-        v-slot="{ isActive }"
-      >
-        <span :class="{ 'active-link': isActive }">About</span>
-      </router-link>
-      <router-link
         to="/contact"
         class="block px-3 py-2 uppercase ubuntu-large"
         @click="toggleMenu"
@@ -138,13 +130,6 @@ const closeMenu = () => {
           <span :class="{ 'active-link': isActive }">Articles</span>
         </router-link>
         <router-link
-          to="/about"
-          class="uppercase ubuntu-regular"
-          v-slot="{ isActive }"
-        >
-          <span :class="{ 'active-link': isActive }">About</span>
-        </router-link>
-        <router-link
           to="/contact"
           class="uppercase ubuntu-regular"
           v-slot="{ isActive }"
@@ -169,7 +154,8 @@ const closeMenu = () => {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.15ch;
 }
 .ubuntu-large {
   font-family: 'Ubuntu', sans-serif;
@@ -180,7 +166,7 @@ const closeMenu = () => {
 }
 .active-link {
   position: relative;
-  color: rgb(5 150 105);
+  color: rgb(0, 124, 137);
   font-weight: bold;
   text-decoration: none;
 }
@@ -192,7 +178,7 @@ const closeMenu = () => {
   height: 2px;
   bottom: -3px;
   left: 0;
-  background-color: rgb(5 150 105);
+  background-color: rgb(0, 124, 137);
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out 0s;
