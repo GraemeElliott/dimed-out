@@ -13,7 +13,7 @@ export default defineType({
     defineField({
       name: 'titleCssClass',
       title: 'Title CSS Class',
-      description: 'Optional CSS class to apply to the title for styling',
+      description: 'Optional Tailwind CSS class to apply to the title',
       type: 'string',
     }),
     defineField({
@@ -29,8 +29,8 @@ export default defineType({
       name: 'featured',
       title: 'Featured',
       type: 'boolean',
-      description: 'Indicates if the article is featured. Default is false.',
-      initialValue: false, // Sets the default value to false
+      description: 'Indicates if the article is featured on the homepage',
+      initialValue: false,
     }),
     defineField({
       name: 'author',
@@ -41,7 +41,7 @@ export default defineType({
 
     defineField({
       name: 'articleImage',
-      title: 'Article thumbnail image',
+      title: 'Main article image displayed on article cards',
       type: 'image',
       options: {
         hotspot: true,
@@ -49,7 +49,7 @@ export default defineType({
     }),
     defineField({
       name: 'hoverImage',
-      title: 'Hover image',
+      title: 'Main article on-hover image',
       type: 'image',
       options: {
         hotspot: true,
@@ -57,7 +57,7 @@ export default defineType({
     }),
     defineField({
       name: 'coverImage',
-      title: 'Cover image',
+      title: 'Article cover image on article page',
       type: 'image',
       options: {
         hotspot: true,
@@ -65,22 +65,21 @@ export default defineType({
     }),
     defineField({
       name: 'coverImageCredit',
-      title: 'Cover Image Credit',
+      title: 'Cover image credit',
       type: 'string',
     }),
     defineField({
       name: 'coverImageStyle',
-      title: 'Cover Image Styles',
-      type: 'string', // Even though it's a select dropdown, the type is still 'string'
-      description: 'Select the Cover Image style for the article.',
+      title: 'Cover image styles',
+      type: 'string',
+      description: 'Select the Cover Image style for the article. Values use Tailwind CSS.',
       options: {
         list: [
           {title: 'Greyscale', value: 'grayscale'},
           {title: 'Brightness 50', value: 'brightness-50'},
           {title: 'Brightness 75', value: 'brightness-75'},
-        ], // Define the options for the dropdown
-        // You can also set the layout of the options to 'radio' if you want them displayed as radio buttons in the Sanity Studio
-        layout: 'dropdown', // Explicitly specifying the layout as dropdown
+        ],
+        layout: 'dropdown',
       },
     }),
     defineField({
@@ -97,14 +96,14 @@ export default defineType({
 
     defineField({
       name: 'summaryText',
-      title: 'Summary Text',
-      type: 'text', // 'text' type for plain text, multiline input
+      title: 'Article summary Text',
+      type: 'text',
       description: 'Summary of article',
     }),
     defineField({
       name: 'summaryTextCssClass',
       title: 'Summary Text CSS Class',
-      description: 'Optional CSS class to apply to the summary text for styling',
+      description: 'Optional Tailwind CSS class to apply to the summary text',
       type: 'string',
     }),
 
@@ -128,13 +127,6 @@ export default defineType({
                 },
               ],
             },
-            {
-              name: 'cssClass',
-              title: 'Custom CSS Classes',
-              type: 'string',
-              description: 'Optional CSS class to apply to this block',
-            },
-            // You can add more fields here as needed for layout/style.
           ],
           preview: {
             select: {
@@ -158,7 +150,7 @@ export default defineType({
             },
           },
         },
-        // Article headings
+        // Article heading
         {
           type: 'object',
           name: 'heading',
@@ -167,14 +159,14 @@ export default defineType({
             {
               name: 'heading',
               title: 'Article Heading',
-              type: 'string', // 'text' type for plain text, multiline input
-              description: 'Article Heading',
+              type: 'string',
+              description: 'Article heading',
             },
             {
               name: 'cssClass',
               title: 'Custom CSS Classes',
               type: 'string',
-              description: 'Optional CSS class to apply to this quote block',
+              description: 'Optional Tailwind CSS class to apply to the heading',
             },
           ],
         },
@@ -188,30 +180,29 @@ export default defineType({
               name: 'cssClass',
               title: 'Custom CSS Classes',
               type: 'string',
-              description: 'Optional CSS class to apply to this block',
+              description: 'Optional Tailwind CSS class to apply to images',
             },
             {
               name: 'caption',
-              title: 'Caption',
+              title: 'Image caption',
               type: 'string',
             },
             {
               name: 'credit',
-              title: 'Credit',
+              title: 'Image credit',
               type: 'string',
             },
             {
               name: 'alt',
-              title: 'Alt Text',
+              title: 'Image alt Text',
               type: 'string',
             },
-            // Include other fields as necessary, such as for styling or layout
           ],
           options: {
-            hotspot: true, // Enables image cropping, hotspot, and focal point selection
+            hotspot: true,
           },
         },
-        // Adding the new 'quote' field
+        // Quote //
         {
           type: 'object',
           name: 'quote',
@@ -220,33 +211,31 @@ export default defineType({
             {
               name: 'quote',
               title: 'Quote',
-              type: 'text', // 'text' type for plain text, multiline input
-              description: 'Optional quote to include in the content',
+              type: 'text',
             },
             {
               name: 'quoteCaption',
               title: 'Quote Caption',
-              type: 'string', // 'text' type for plain text, multiline input
-              description: 'Optional quote caption to include in the content',
+              type: 'string',
             },
             {
               name: 'cssClass',
               title: 'Custom CSS Classes',
               type: 'string',
-              description: 'Optional CSS class to apply to this quote block',
+              description: 'Optional Tailwind CSS class to apply to quote block',
             },
           ],
         },
         {
           type: 'object',
           name: 'youtubeID',
-          title: 'YouTube Video ID',
+          title: 'YouTube video ID',
           fields: [
             {
               name: 'videoID',
-              title: 'Video ID',
-              type: 'string', // 'text' type for plain text, multiline input
-              description: 'Youtube Video ID',
+              title: 'Video video ID',
+              type: 'string',
+              description: 'Youtube video ID',
             },
           ],
         },
@@ -255,15 +244,15 @@ export default defineType({
     defineField({
       name: 'noteFromTheAuthor',
       title: 'A Note From The Author',
-      type: 'array', // Change type to array for rich text
-      of: [{type: 'block'}], // Specify that the array contains 'block' types for rich text
+      type: 'array',
+      of: [{type: 'block'}],
       description: 'A note from the author',
     }),
     defineField({
       name: 'sources',
       title: 'Sources',
-      type: 'array', // Change type to array for rich text
-      of: [{type: 'block'}], // Specify that the array contains 'block' types for rich text
+      type: 'array',
+      of: [{type: 'block'}],
       description: 'List of article sources',
     }),
     defineField({
@@ -271,7 +260,7 @@ export default defineType({
       title: 'Article PDF File',
       type: 'file',
       options: {
-        accept: '.pdf', // Only allow PDF files to be uploaded
+        accept: '.pdf',
       },
     }),
   ],
