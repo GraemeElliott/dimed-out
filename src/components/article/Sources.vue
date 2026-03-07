@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <div v-if="sourceBlocks.length">
-    <h2 class="text-xl xl:text-3xl font-bold mb-4">Sources</h2>
+    <h2 class="text-xl xl:text-3xl font-bold mb-4">Sources and References</h2>
     <PortableText :value="sourceBlocks" :components="serializers" />
   </div>
 </template>
